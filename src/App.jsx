@@ -32,8 +32,10 @@ export default function App() {
   const [prizeNumber, setPrizeNumber] = useState(0)
   const [showConfetti, setShowConfetti] = useState(false)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [name, setName] = useState("")
 
   const handleSpinClick = () => {
+    if (!name.trim()) return // aman, tombol juga sudah disable
     const newPrizeNumber = Math.floor(Math.random() * data.length)
     setPrizeNumber(newPrizeNumber)
     setMustSpin(true)
@@ -53,12 +55,28 @@ export default function App() {
         {/* Perkenalan */}
         <p className="text-white text-lg sm:text-xl lg:text-2xl font-medium mb-4 drop-shadow-md text-center">
           👋 Hallo, aku <span className="font-bold">Zidan</span> <br />
-          Aku punya sebuah <span className="italic">Roulette Semangat</span> buat <soan className="font-extrabold">kamu</soan>
+          Aku punya sebuah <span className="italic">Roulette Semangat</span> buat{" "}
+          <span className="font-extrabold">kamu</span>
         </p>
+
+        {/* Input nama */}
+        <input
+          type="text"
+          placeholder="✨ Masukkan namamu dulu... ✨"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="mb-6 px-5 py-3 rounded-2xl text-center w-80 max-w-full
+             text-lg font-bold text-purple-700 placeholder-purple-400
+             bg-white/80 backdrop-blur-md 
+             border-4 border-yellow-400 shadow-2xl
+             focus:outline-none focus:ring-4 focus:ring-pink-400
+             animate-pulse"
+        />
+
 
         {/* Judul */}
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-6 text-white drop-shadow-lg animate-bounce text-center">
-          🎡 Yukk Roulette Jangan Malu Malu   🎉
+          🎡 Yukk Roulette Jangan Malu Malu 🎉
         </h1>
 
         {/* Roulette */}
@@ -77,14 +95,18 @@ export default function App() {
               setShowConfetti(true)
               setIsModalOpen(true)
             }}
+            spinDuration={0.3} // biar sekitar 3 detik
           />
         </div>
 
         {/* Tombol spin */}
         <button
           onClick={handleSpinClick}
-          disabled={mustSpin}
-          className="mt-6 sm:mt-8 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold shadow-lg hover:scale-105 transition disabled:opacity-50 text-sm sm:text-base lg:text-lg"
+          disabled={mustSpin || !name.trim()}
+          className="mt-6 sm:mt-8 bg-gradient-to-r from-blue-500 to-purple-600 
+            text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold shadow-lg 
+            hover:scale-105 transition disabled:opacity-50 disabled:cursor-not-allowed
+            text-sm sm:text-base lg:text-lg"
         >
           👉 Tekan Aku untuk Memutar Roulette 🎡
         </button>
@@ -101,10 +123,12 @@ export default function App() {
                 <X size={28} />
               </button>
 
-              <h2 className="text-xl sm:text-3xl lg:text-5xl font-bold text-center mb-6 sm:mb-8 text-gray-800">
-                🎉 Kata Semangatmu Hari Ini 🎉
+              {/* Nama user */}
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-center mb-4 sm:mb-6 text-indigo-600">
+                ✨ {name}, kata semangat buat kamu ✨
               </h2>
 
+              {/* Kata semangat */}
               <p className="text-lg sm:text-2xl lg:text-3xl font-semibold text-center text-gray-700 leading-relaxed">
                 {data[prizeNumber].option}
               </p>
