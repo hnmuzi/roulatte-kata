@@ -45,64 +45,78 @@ export default function App() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-4 sm:p-6 relative overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-4 sm:p-6">
       {showConfetti && <Confetti />}
 
-      {/* Judul */}
-      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-6 text-white drop-shadow-lg animate-bounce text-center">
-        🎡 Roulette Kata Semangat Hari Ini 🎉
-      </h1>
+      {/* Konten utama */}
+      <main className="flex flex-col flex-grow items-center justify-center relative overflow-hidden">
+        {/* Perkenalan */}
+        <p className="text-white text-lg sm:text-xl lg:text-2xl font-medium mb-4 drop-shadow-md text-center">
+          👋 Hallo, aku <span className="font-bold">Zidan</span> <br />
+          Aku punya sebuah <span className="italic">Roulette Semangat</span> buat <soan className="font-extrabold">kamu</soan>
+        </p>
 
-      {/* Roulette */}
-      <div className="bg-white/20 backdrop-blur-lg p-4 sm:p-6 rounded-2xl shadow-2xl border border-white/30 w-[90vw] max-w-md sm:max-w-lg">
-        <Wheel
-          mustStartSpinning={mustSpin}
-          prizeNumber={prizeNumber}
-          data={data.map(() => ({ option: "✨ ??? ✨" }))}
-          backgroundColors={["#6366f1", "#8b5cf6", "#10b981", "#f59e0b"]}
-          textColors={["#ffffff"]}
-          outerBorderColor={["#ffffff"]}
-          radiusLineColor={["#ffffff"]}
-          fontSize={12}
-          onStopSpinning={() => {
-            setMustSpin(false)
-            setShowConfetti(true)
-            setIsModalOpen(true)
-          }}
-        />
-      </div>
+        {/* Judul */}
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-6 text-white drop-shadow-lg animate-bounce text-center">
+          🎡 Yukk Roulette Jangan Malu Malu   🎉
+        </h1>
 
-      {/* Tombol spin */}
-      <button
-        onClick={handleSpinClick}
-        disabled={mustSpin}
-        className="mt-6 sm:mt-8 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold shadow-lg hover:scale-105 transition disabled:opacity-50 text-sm sm:text-base lg:text-lg"
-      >
-        👉 Tekan Aku untuk Memutar Roulette 🎡
-      </button>
-
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="relative bg-white rounded-3xl shadow-2xl w-[90%] sm:w-[80%] lg:max-w-4xl p-6 sm:p-8 lg:p-12 animate-fadeIn">
-            {/* Tombol X */}
-            <button
-              className="absolute top-4 right-4 text-gray-500 hover:text-red-500"
-              onClick={() => setIsModalOpen(false)}
-            >
-              <X size={28} />
-            </button>
-
-            <h2 className="text-xl sm:text-3xl lg:text-5xl font-bold text-center mb-6 sm:mb-8 text-gray-800">
-              🎉 Kata Semangatmu Hari Ini 🎉
-            </h2>
-
-            <p className="text-lg sm:text-2xl lg:text-3xl font-semibold text-center text-gray-700 leading-relaxed">
-              {data[prizeNumber].option}
-            </p>
-          </div>
+        {/* Roulette */}
+        <div className="bg-white/20 backdrop-blur-lg p-4 sm:p-6 rounded-2xl shadow-2xl border border-white/30 w-[90vw] max-w-md sm:max-w-lg">
+          <Wheel
+            mustStartSpinning={mustSpin}
+            prizeNumber={prizeNumber}
+            data={data.map(() => ({ option: "✨ ??? ✨" }))}
+            backgroundColors={["#6366f1", "#8b5cf6", "#10b981", "#f59e0b"]}
+            textColors={["#ffffff"]}
+            outerBorderColor={["#ffffff"]}
+            radiusLineColor={["#ffffff"]}
+            fontSize={12}
+            onStopSpinning={() => {
+              setMustSpin(false)
+              setShowConfetti(true)
+              setIsModalOpen(true)
+            }}
+          />
         </div>
-      )}
+
+        {/* Tombol spin */}
+        <button
+          onClick={handleSpinClick}
+          disabled={mustSpin}
+          className="mt-6 sm:mt-8 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold shadow-lg hover:scale-105 transition disabled:opacity-50 text-sm sm:text-base lg:text-lg"
+        >
+          👉 Tekan Aku untuk Memutar Roulette 🎡
+        </button>
+
+        {/* Modal */}
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="relative bg-white rounded-3xl shadow-2xl w-[90%] sm:w-[80%] lg:max-w-4xl p-6 sm:p-8 lg:p-12 animate-fadeIn">
+              {/* Tombol X */}
+              <button
+                className="absolute top-2 right-4 text-gray-500 hover:text-red-500"
+                onClick={() => setIsModalOpen(false)}
+              >
+                <X size={28} />
+              </button>
+
+              <h2 className="text-xl sm:text-3xl lg:text-5xl font-bold text-center mb-6 sm:mb-8 text-gray-800">
+                🎉 Kata Semangatmu Hari Ini 🎉
+              </h2>
+
+              <p className="text-lg sm:text-2xl lg:text-3xl font-semibold text-center text-gray-700 leading-relaxed">
+                {data[prizeNumber].option}
+              </p>
+            </div>
+          </div>
+        )}
+      </main>
+
+      {/* Footer */}
+      <footer className="text-white/80 text-sm sm:text-base text-center py-2 mt-10">
+        © {new Date().getFullYear()} Zidan. All Rights Reserved.
+      </footer>
     </div>
   )
 }
